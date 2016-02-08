@@ -132,7 +132,7 @@ def aabb(shape1, shape2):
     r0, c0, r1, c1 = shape1
     r2, c2, r3, c3 = shape2
 
-    return c0 < c3 and c1 > c2 and r0 < r3 and r1 > r2
+    return c1 >= c2 and c3 >= c0 and r1 >= r2 and r3 >= r0 
 
 def score(grid, shape):
     """score the significance of the shape

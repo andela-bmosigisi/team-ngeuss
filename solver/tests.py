@@ -53,7 +53,20 @@ class ScansTestCase(unittest.TestCase):
         self.assertEqual( (4, 3, 6, 5), boxes[4])
 
     def testAABB(self):
-        pass
+        shape0 = (0, 0, 1, 1)
+
+        shape1 = (4, 4, 4, 8)
+        shape3 = (0, 6, 8, 6)
+
+        shape4 = (1, 2, 4, 4)
+        shape5 = (3, 4, 5, 5)
+
+        self.assertFalse(aabb(shape0, shape1))
+        self.assertFalse(aabb(shape0, shape1))
+
+        self.assertTrue(aabb(shape1, shape3))
+
+        self.assertTrue(aabb(shape4, shape5))
 
     def testScan(self):
         scan(self.grid)
