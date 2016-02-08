@@ -21,8 +21,8 @@ if not os.path.exists('input'):
 
 for j in range(files_number):
     f = open('input/' + file_names[j], 'w+')
-    cols = random.randint(100, 800)
-    rows = random.randint(20, 200)
+    rows = random.randint(100, 800)
+    cols = random.randint(20, 200)
     f.write(str(rows) + ' ' + str(cols) + '\n')
     for row in range(rows):
         line = [''] * cols
