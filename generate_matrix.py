@@ -1,5 +1,13 @@
-with open('input.txt') as myfile:
-    content = myfile.readlines()
+""" Read the input file and return a matrix
+of 0's and 1's.
+"""
+
+
+def get_input_matrix(filename):
+    f = open(filename)
+    # remove the first line.
+    f.readline()
+    content = f.readlines()
     matrix = []
     for line in content:
         new_line = []
@@ -12,5 +20,6 @@ with open('input.txt') as myfile:
                 new_line.append(i)
 
         matrix.append(new_line)
+    f.close()
 
-print matrix
+    return matrix
