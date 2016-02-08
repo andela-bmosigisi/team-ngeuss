@@ -27,9 +27,6 @@ if __name__ == '__main__':
             c0 = l_s[1] - offset
             c1 = l_s[1] + offset
 
-            print l_s
-            print (r0, c0, r1, c1)
-
             for r in range(r0, r1 + 1):
                 for c in range(c0, c1 + 1):
                     matrix[r][c] = 0
@@ -38,6 +35,18 @@ if __name__ == '__main__':
             output_file.write(command + '\n')
             l_s = get_largest_square(matrix)
 
+        # draw all the lines.
+        l_l = get_longest_line(matrix)
+        while (l_l is not None):
+            for ro in range(l_l[0], l_l[2] + 1):
+                for co in range(l_l[1], l_l[3] + 1):
+                    matrix[ro][co] = 0
+
+            command = generate_command((l_l[0], l_l[1], l_l[2], l_l[3]))
+            output_file.write(command + '\n')
+            l_l = get_longest_line(matrix)
+
+        # draw the remaining cells
         for i in range(0, rows_num):
             for j in range(0, cols_num):
                 if (matrix[i][j] == 1):

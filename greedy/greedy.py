@@ -43,7 +43,7 @@ def scan_square(row, col, matrix):
 
     Returns a tuple describing the biggest square's center coordinates
     and the dimensions of the cell.
-        e.g (2, 3, 5) is a size 4 centered at (2, 3)
+        e.g (2, 3, 5) is a size 5 centered at (2, 3)
         (r, c, s)
     Return None if none is found.
     """
@@ -51,10 +51,15 @@ def scan_square(row, col, matrix):
         return None
 
     sq = None
-    rows_no = len(matrix)
-    cols_no = len(matrix[0])
+    rows_no = len(matrix) - 1
+    cols_no = len(matrix[0]) - 1
     found = True
-    for step in range(2, rows_no+cols_no, 2):
+    upper = rows_no
+    if (cols_no > rows_no):
+        upper = cols_no
+    for step in range(2, upper, 2):
+        if (found is False):
+            break
         r1 = row + step
         c1 = col + step
         if (r1 > rows_no or c1 > cols_no):
