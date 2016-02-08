@@ -21,7 +21,7 @@ def generate_command(tup, etup=None):
 
     if ((tup[0] == tup[2]) and (tup[1] == tup[3])):
         # draw a single cell.
-        return 'PAINT_SQUARE ' + str(tup[0]) + ' ' + str(tup[1]) + '0'
+        return 'PAINT_SQUARE ' + str(tup[0]) + ' ' + str(tup[1]) + ' 0'
 
     elif ((tup[0] == tup[2]) or (tup[1] == tup[3])):
         # draw a line.
