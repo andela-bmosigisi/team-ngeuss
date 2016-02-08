@@ -140,7 +140,6 @@ def score(grid, shape):
     a shapes value is how many shaded cells it covers
     against how many it covers but are unshaded.
     """
-
     array, _, _ = grid
     r0, c0, r1, c1 = shape
     points = 0
@@ -150,20 +149,25 @@ def score(grid, shape):
             if array[r][c]:
                 points+=1
 
-def filter_shapes(shapes):
+    return points
+
+def filter_shapes(grid, shapes):
     """remove shapes of least value"""
 
     collision_list = {}
     filtered = []
 
-    for shape in shapes:
-        for sample in itertools.permutation(shapes):
-            if aabb(shape, sample):
-                collision_list[shape] = sample
+    for shape0, shape1 in itertools.permutations(shapes, 2):
+        if aabb(shape0, shape1):
+            try:
+                collision_list[shape0].append(shape1)
+            except KeyError:
+                collision_list[shape0] = []
+                collision_list[shape0].append(shape1)
 
     for shape in collision_list:
-        own_weight = score(shape)
-        others_weight = sum(map(lambda s:score(s), collision_list[shape]))
+        own_weight = score(grid, shape)
+        others_weight = sum(map(lambda s:score(grid, s), collision_list[shape]))
 
         if own_weight >= others_weight:
             filtered.append(shape)
@@ -186,7 +190,7 @@ def scan_unshader(grid, shapes):
 def scan_shader(grid, shapes):
     """find cells uncovered by shape but shaded"""
 
-    array, rows, columns = grid
+    array, height, width = grid
     shade = []
 
     for r in range(0, height):
@@ -216,7 +220,8 @@ def scan(grid):
 
     shapes = x_lines + y_lines + boxes
 
-    shades = filter_shapes(shapes)
+    shades = filter_shapes(grid, shapes)
+
     unshades = scan_unshader(grid, shades)
 
     shades.append(scan_shader(grid, shades))
