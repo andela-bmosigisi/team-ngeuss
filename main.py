@@ -2,6 +2,7 @@ from greedy.greedy import *
 from generate_matrix import get_input_matrix
 from serializer.command_generator import generate_command
 import sys
+import os
 
 if __name__ == '__main__':
     # Receive the filename from the console args.
@@ -13,7 +14,10 @@ if __name__ == '__main__':
         line_1 = f.readline()
     line_1 = line_1.split(' ')
 
-    output_file = open('output.txt', 'w+')
+    if not os.path.exists('output'):
+        os.makedirs('output')
+
+    output_file = open('output/output.txt', 'w+')
     rows_num = int(line_1[0])
     cols_num = int(line_1[1])
     while (not check_matrix_empty(matrix, rows_num, cols_num)):

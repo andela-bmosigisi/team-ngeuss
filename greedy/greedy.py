@@ -20,9 +20,9 @@ def get_largest_square(matrix):
     if (rows_no < 3 or cols_no < 3):
         return None
     largest_square = None
-    for r in range(0, rows_no):
-        for c in range(0, cols_no):
-            sq = scan_square(r, c, matrix)
+    for row in range(0, rows_no):
+        for col in range(0, cols_no):
+            sq = scan_square(row, col, matrix)
             if (sq is None):
                 continue
             if (largest_square is None):
@@ -50,26 +50,29 @@ def scan_square(row, col, matrix):
     if (matrix[row][col] == 0):
         return None
 
+    rows_no = len(matrix)
+    cols_no = len(matrix[0])
+    if (((row + 2) > rows_no - 1) or ((col + 2) > cols_no - 1)):
+        return None
+
     sq = None
-    rows_no = len(matrix) - 1
-    cols_no = len(matrix[0]) - 1
     found = True
-    upper = rows_no
-    if (cols_no > rows_no):
-        upper = cols_no
-    for step in range(2, upper, 2):
+    lmt = rows_no if rows_no < cols_no else cols_no
+    for inc in range(2, lmt, 2):
         if (found is False):
             break
-        r1 = row + step
-        c1 = col + step
-        if (r1 > rows_no or c1 > cols_no):
+        r1 = row + inc
+        c1 = col + inc
+        if (r1 > rows_no - 1 or c1 > cols_no - 1):
             break
-        for r in range(row, r1):
-            for c in range(col, c1):
-                if (matrix[r][c] == 0):
+        for i in range(row, r1 + 1):
+            if (found is False):
+                break
+            for j in range(col, c1 + 1):
+                if (matrix[i][j] == 0):
                     found = False
                     break
-        if (found is True):
+        if found:
             sq = ((row + r1)/2, (col + c1)/2, r1-row + 1)
 
     return sq
