@@ -14,11 +14,7 @@ if __name__ == '__main__':
         line_1 = f.readline()
     line_1 = line_1.split(' ')
 
-    if not os.path.exists('output'):
-        os.makedirs('output')
-
-    output_file_name = filename[-7:-3] + '.out'
-    output_file = open('output/output_'+output_file_name, 'w+')
+    commands_list = []
     rows_num = int(line_1[0])
     cols_num = int(line_1[1])
     while (not check_matrix_empty(matrix, rows_num, cols_num)):
@@ -37,7 +33,7 @@ if __name__ == '__main__':
                     matrix[r][c] = 0
 
             command = generate_command((r0, c0, r1, c1))
-            output_file.write(command + '\n')
+            commands_list.append(command + '\n')
             l_s = get_largest_square(matrix)
 
         # draw all the lines.
@@ -48,7 +44,7 @@ if __name__ == '__main__':
                     matrix[ro][co] = 0
 
             command = generate_command((l_l[0], l_l[1], l_l[2], l_l[3]))
-            output_file.write(command + '\n')
+            commands_list.append(command + '\n')
             l_l = get_longest_line(matrix)
 
         # draw the remaining cells
@@ -56,7 +52,15 @@ if __name__ == '__main__':
             for j in range(0, cols_num):
                 if (matrix[i][j] == 1):
                     command = generate_command((i, j, i, j))
-                    output_file.write(command + '\n')
+                    commands_list.append(command + '\n')
                     matrix[i][j] = 0
 
+    if not os.path.exists('output'):
+        os.makedirs('output')
+
+    output_file_name = filename[-7:-3] + '.out'
+    output_file = open('output/output_'+output_file_name, 'w+')
+    output_file.write(str(len(commands_list)) + '\n')
+    for i in commands_list:
+        output_file.write(i)
     output_file.close()
