@@ -17,7 +17,8 @@ if __name__ == '__main__':
     if not os.path.exists('output'):
         os.makedirs('output')
 
-    output_file = open('output/output.txt', 'w+')
+    output_file_name = filename[-7:-3] + '.out'
+    output_file = open('output/output_'+output_file_name, 'w+')
     rows_num = int(line_1[0])
     cols_num = int(line_1[1])
     while (not check_matrix_empty(matrix, rows_num, cols_num)):
