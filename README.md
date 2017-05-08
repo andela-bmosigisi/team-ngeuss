@@ -1,4 +1,4 @@
-#Team-ngeuss
+# Team-ngeuss
 
 A python solution to the 2016 google hashcode practise problem, as discussed and implemented by Andela's team-ngeuss.
 More details on the team-based programming competition can be found [here](https://hashcode.withgoogle.com/). The problem description can also be obtained from
